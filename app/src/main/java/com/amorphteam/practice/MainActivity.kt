@@ -11,14 +11,32 @@ import kotlin.random.Random
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private val player: Player = Player("samane")
+    var turn: Boolean = true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 //        setContentView(R.layout.activity_main)
         binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
+        binding.playerName = player
 
         binding.buttonMench.setOnClickListener {
+            setPlayerName()
             setRandomMench()
+        }
+    }
+
+    private fun setPlayerName() {
+        binding.apply{
+        if(turn){
+            binding.playerName?.player = "Samane"
+            invalidateAll()
+            turn = false
+        }else{
+            binding.playerName?.player = "Aref"
+            invalidateAll()
+            turn = true
+        }
         }
     }
 
@@ -31,6 +49,7 @@ class MainActivity : AppCompatActivity() {
             4-> imageMench.setImageResource(R.drawable.dice_4)
             5-> imageMench.setImageResource(R.drawable.dice_5)
             else -> imageMench.setImageResource(R.drawable.dice_6)
+
             }
         }
 
